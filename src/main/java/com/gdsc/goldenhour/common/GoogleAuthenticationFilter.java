@@ -1,10 +1,7 @@
 package com.gdsc.goldenhour.common;
 
-import com.gdsc.goldenhour.common.exception.CustomCommonException;
-import com.gdsc.goldenhour.common.exception.ErrorCode;
 import com.gdsc.goldenhour.user.UserService;
 import com.gdsc.goldenhour.user.domain.User;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

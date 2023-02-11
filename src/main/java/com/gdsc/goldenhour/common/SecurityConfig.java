@@ -1,5 +1,6 @@
 package com.gdsc.goldenhour.common;
 
+import com.gdsc.goldenhour.common.exception.GoogleAuthenticationExceptionFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 public class SecurityConfig {
 
     private final GoogleAuthenticationFilter googleFilter;
+    private final GoogleAuthenticationExceptionFilter googleExceptionFilter;
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -32,8 +34,9 @@ public class SecurityConfig {
                         .antMatchers("/h2-console/**").permitAll()
                         .antMatchers(HttpMethod.OPTIONS).permitAll()
                         .antMatchers("/disaster/**", "/guide/**").permitAll()
-                        .antMatchers("/user/**").authenticated()
-                        .and().addFilterBefore(googleFilter, UsernamePasswordAuthenticationFilter.class);
+                        .antMatchers("/user/**").authenticated().and()
+                        .addFilterBefore(googleFilter, UsernamePasswordAuthenticationFilter.class)
+                        .addFilterBefore(googleExceptionFilter, GoogleAuthenticationFilter.class);
 
         return http.build();
     }
