@@ -2,8 +2,6 @@ package com.gdsc.goldenhour.common;
 
 import com.gdsc.goldenhour.common.exception.CustomCommonException;
 import com.gdsc.goldenhour.common.exception.ErrorCode;
-import com.gdsc.goldenhour.user.domain.User;
-import com.gdsc.goldenhour.user.repository.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @Component
@@ -29,43 +26,33 @@ public class GoogleIdTokenProvider {
 
     private GoogleIdTokenVerifier verifier;
 
-    private final UserRepository userRepository;
+    public String provideGoogleId(String idToken) {
+        if (idToken == null) {
+            throw new CustomCommonException(ErrorCode.MISSING_TOKEN);
+        }
 
-    public Optional<User> convertUser(String idToken) {
         try {
-            if (verifier == null) {
-                verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                        .setAudience(Collections.singleton(clientId))
-                        .build();
-            }
-
+            checkVerifier();
             GoogleIdToken googleIdToken = verifier.verify(idToken);
 
-            if (googleIdToken != null) {
-                GoogleIdToken.Payload payload = googleIdToken.getPayload();
-                String googleId = payload.getSubject();
-
-                // 회원 존재 여부 확인 및 가입
-                return Optional.of(
-                        userRepository.findById(googleId).orElse(
-                                userRepository.save(
-                                        User.builder()
-                                                .googleId(googleId)
-                                                .build()
-                                )
-                        )
-                );
-            } else {
+            if (googleIdToken == null) {
                 log.warning("Invalid Google ID token.");
                 throw new CustomCommonException(ErrorCode.INVALID_TOKEN);
             }
+
+            return googleIdToken.getPayload().getSubject();
         } catch (GeneralSecurityException | IOException e) {
-            log.warning(e.getLocalizedMessage());
+            throw new CustomCommonException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
 
-        return Optional.empty();
     }
 
-
+    private void checkVerifier() {
+        if (this.verifier == null) {
+            this.verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                    .setAudience(Collections.singleton(clientId))
+                    .build();
+        }
+    }
 
 }
