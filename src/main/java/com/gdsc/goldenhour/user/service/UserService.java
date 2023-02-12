@@ -1,4 +1,4 @@
-package com.gdsc.goldenhour.user;
+package com.gdsc.goldenhour.user.service;
 
 import com.gdsc.goldenhour.user.domain.User;
 import com.gdsc.goldenhour.user.repository.UserRepository;
@@ -13,9 +13,9 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public User login(String googleId) {
+    public String login(String googleId) {
         // 회원 존재 여부 확인 및 가입
-        return userRepository.findById(googleId).orElse(
+        User user =  userRepository.findById(googleId).orElse(
                 userRepository.save(
                         User.builder()
                                 .googleId(googleId)
@@ -23,5 +23,6 @@ public class UserService {
                 )
         );
 
+        return user.getGoogleId();
     }
 }

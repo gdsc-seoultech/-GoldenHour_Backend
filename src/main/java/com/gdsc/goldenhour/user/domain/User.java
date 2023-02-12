@@ -5,10 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,8 +16,11 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     private String googleId;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<ReliefGoods> reliefGoodsList = new ArrayList<>();
 
     @Builder
     public User(String googleId) {

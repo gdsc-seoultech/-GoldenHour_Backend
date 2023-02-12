@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping("")
-    public ResponseEntity<ResponseDto<String>> login() {
+    public ResponseEntity<ResponseDto<?>> login() {
         return new ResponseEntity<>(ResponseDto.success("로그인 완료"), HttpStatus.OK);
     }
 

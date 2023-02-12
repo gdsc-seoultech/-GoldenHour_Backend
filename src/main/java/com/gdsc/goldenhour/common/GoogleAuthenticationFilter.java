@@ -1,6 +1,6 @@
 package com.gdsc.goldenhour.common;
 
-import com.gdsc.goldenhour.user.UserService;
+import com.gdsc.goldenhour.user.service.UserService;
 import com.gdsc.goldenhour.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,9 +35,9 @@ public class GoogleAuthenticationFilter extends OncePerRequestFilter {
             final String idToken = request.getHeader("Authorization"); // Authorization 헤더 꺼냄
 
             String googleId = tokenProvider.provideGoogleId(idToken);
-            User user = userService.login(googleId);
+            String userId = userService.login(googleId);
 
-            Authentication authentication = getAuthentication(user);
+            Authentication authentication = getAuthentication(userId);
             SecurityContextHolder.getContext().setAuthentication(authentication); // token에 존재하는 authentication 정보 삽입
         }
 
@@ -45,10 +45,10 @@ public class GoogleAuthenticationFilter extends OncePerRequestFilter {
     }
 
     // TODO: User 도메인으로 옮기기?
-    private Authentication getAuthentication(User user) {
+    private Authentication getAuthentication(String userId) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new UsernamePasswordAuthenticationToken(user, "", authorities);
+        return new UsernamePasswordAuthenticationToken(userId, "", authorities);
     }
 
 }
