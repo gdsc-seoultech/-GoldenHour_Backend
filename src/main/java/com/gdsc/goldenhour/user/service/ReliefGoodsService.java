@@ -59,12 +59,12 @@ public class ReliefGoodsService {
 
     private ReliefGoods readReliefGoods(Long reliefGoodsId) {
         return reliefGoodsRepository.findById(reliefGoodsId)
-                .orElseThrow(() -> new CustomCommonException(ErrorCode.NOT_FOUND_ITEM));
+                .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
     }
 
     private User readUser(String userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new CustomCommonException(ErrorCode.INTERNAL_SERVER_ERROR));
+                .orElseThrow(() -> new CustomCommonException(ErrorCode.USER_NOT_FOUND));
     }
 
     private void validateUser(String userId, ReliefGoods reliefGoods) {

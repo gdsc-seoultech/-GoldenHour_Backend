@@ -14,7 +14,8 @@ public enum ErrorCode {
     INVALID_USER(403, HttpStatus.FORBIDDEN, "올바른 사용자가 아닙니다."),
 
     // 404 NOT_FOUND 존재하지 않음
-    NOT_FOUND_ITEM(404, HttpStatus.NOT_FOUND, "항목이 존재하지 않습니다."),
+    USER_NOT_FOUND(404, HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
+    ITEM_NOT_FOUND(404, HttpStatus.NOT_FOUND, "존재하지 않는 항목입니다."),
 
     // 500 INTERNAL SERVER ERROR
     INTERNAL_SERVER_ERROR(500, HttpStatus.INTERNAL_SERVER_ERROR, "서버 에러입니다.");
