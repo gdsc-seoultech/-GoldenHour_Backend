@@ -23,7 +23,7 @@ public class ReliefGoodsService {
     private final ReliefGoodsRepository reliefGoodsRepository;
 
     @Transactional(readOnly = true)
-    public List<?> readReliefGoodsList(String userId) {
+    public List<ReliefGoodsRes> readReliefGoodsList(String userId) {
         User user = readUser(userId);
 
         List<ReliefGoodsRes> response = new ArrayList<>();
@@ -34,19 +34,23 @@ public class ReliefGoodsService {
     }
 
     @Transactional
-    public void createReliefGoods(ReliefGoodsReq request, String userId) {
+    public ReliefGoods createReliefGoods(ReliefGoodsReq request, String userId) {
         User user = readUser(userId);
 
         ReliefGoods reliefGoods = request.toReliefGoods();
         reliefGoods.setUser(user);
+
+        return reliefGoods;
     }
 
     @Transactional
-    public void updateReliefGoods(ReliefGoodsReq request, Long reliefGoodsId, String userId) {
+    public ReliefGoods updateReliefGoods(ReliefGoodsReq request, Long reliefGoodsId, String userId) {
         ReliefGoods reliefGoods = readReliefGoods(reliefGoodsId);
         validateUser(userId, reliefGoods);
 
         reliefGoods.update(request);
+
+        return reliefGoods;
     }
 
     @Transactional

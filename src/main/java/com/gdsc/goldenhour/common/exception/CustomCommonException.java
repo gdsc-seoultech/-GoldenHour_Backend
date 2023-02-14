@@ -1,10 +1,8 @@
 package com.gdsc.goldenhour.common.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@AllArgsConstructor
 @Getter
 public class CustomCommonException extends RuntimeException {
     private final int status;
