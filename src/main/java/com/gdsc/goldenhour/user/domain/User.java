@@ -22,6 +22,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<ReliefGoods> reliefGoodsList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<EmergencyContact> emergencyContactList = new ArrayList<>();
+
     @Builder
     public User(String googleId) {
         this.googleId = googleId;

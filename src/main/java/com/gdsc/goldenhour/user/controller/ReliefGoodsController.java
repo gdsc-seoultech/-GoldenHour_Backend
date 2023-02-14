@@ -11,6 +11,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user/relief_goods")
@@ -24,13 +26,13 @@ public class ReliefGoodsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResponseDto<?>> createReliefGoods(@RequestBody ReliefGoodsReq reliefGoodsReq, @AuthenticationPrincipal String userId) {
+    public ResponseEntity<ResponseDto<?>> createReliefGoods(@Valid @RequestBody ReliefGoodsReq reliefGoodsReq, @AuthenticationPrincipal String userId) {
         ReliefGoods createdReliefGoods = reliefGoodsService.createReliefGoods(reliefGoodsReq, userId);
         return new ResponseEntity<>(ResponseDto.success(createdReliefGoods.toReliefGoodsRes()), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto<?>> updateReliefGoods(@RequestBody ReliefGoodsReq reliefGoodsReq, @PathVariable Long id, @AuthenticationPrincipal String userId) {
+    public ResponseEntity<ResponseDto<?>> updateReliefGoods(@Valid @RequestBody ReliefGoodsReq reliefGoodsReq, @PathVariable Long id, @AuthenticationPrincipal String userId) {
         ReliefGoods updatedReliefGoods = reliefGoodsService.updateReliefGoods(reliefGoodsReq, id, userId);
         return new ResponseEntity<>(ResponseDto.success(updatedReliefGoods.toReliefGoodsRes()), HttpStatus.OK);
     }
