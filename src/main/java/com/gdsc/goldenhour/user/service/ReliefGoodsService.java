@@ -9,7 +9,6 @@ import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsReadRes;
 import com.gdsc.goldenhour.user.repository.ReliefGoodsRepository;
 import com.gdsc.goldenhour.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
