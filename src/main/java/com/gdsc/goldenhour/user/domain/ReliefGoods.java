@@ -1,7 +1,6 @@
 package com.gdsc.goldenhour.user.domain;
 
 import com.gdsc.goldenhour.user.dto.request.ReliefGoodsReq;
-import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,19 +30,11 @@ public class ReliefGoods {
     }
 
     public void setUser(User user) {
-        user.getReliefGoodsList().add(this);
         this.user = user;
     }
 
     public void update(ReliefGoodsReq request) {
         name = request.getName();
-    }
-
-    public ReliefGoodsRes toReliefGoodsRes() {
-        return ReliefGoodsRes.builder()
-                .id(id)
-                .name(name)
-                .build();
     }
 
 }

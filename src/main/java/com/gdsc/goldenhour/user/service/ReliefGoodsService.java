@@ -5,15 +5,19 @@ import com.gdsc.goldenhour.common.exception.ErrorCode;
 import com.gdsc.goldenhour.user.domain.ReliefGoods;
 import com.gdsc.goldenhour.user.domain.User;
 import com.gdsc.goldenhour.user.dto.request.ReliefGoodsReq;
-import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes;
+import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsReadRes;
 import com.gdsc.goldenhour.user.repository.ReliefGoodsRepository;
 import com.gdsc.goldenhour.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsCreateRes;
+import static com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsUpdateRes;
 
 @RequiredArgsConstructor
 @Service
@@ -23,40 +27,48 @@ public class ReliefGoodsService {
     private final ReliefGoodsRepository reliefGoodsRepository;
 
     @Transactional(readOnly = true)
-    public List<ReliefGoodsRes> readReliefGoodsList(String userId) {
+    public List<ReliefGoodsReadRes> readReliefGoodsList(String userId) {
         User user = readUser(userId);
 
-        List<ReliefGoodsRes> response = new ArrayList<>();
+        List<ReliefGoodsReadRes> response = new ArrayList<>();
         user.getReliefGoodsList().forEach(
-                reliefGoods -> response.add(reliefGoods.toReliefGoodsRes())
+                reliefGoods -> response.add(new ReliefGoodsReadRes(reliefGoods))
         );
+
         return response;
     }
 
+
     @Transactional
-    public ReliefGoods createReliefGoods(ReliefGoodsReq request, String userId) {
+    public ReliefGoodsCreateRes createReliefGoods(ReliefGoodsReq request, String userId) {
         User user = readUser(userId);
 
         ReliefGoods reliefGoods = request.toReliefGoods();
-        reliefGoods.setUser(user);
+        user.addReliefGoods(reliefGoods);
 
-        return reliefGoods;
+        return new ReliefGoodsCreateRes(reliefGoods);
     }
 
     @Transactional
-    public ReliefGoods updateReliefGoods(ReliefGoodsReq request, Long reliefGoodsId, String userId) {
+    public ReliefGoodsUpdateRes updateReliefGoods(ReliefGoodsReq request, Long reliefGoodsId, String userId) {
+        User user = readUser(userId);
         ReliefGoods reliefGoods = readReliefGoods(reliefGoodsId);
-        validateUser(userId, reliefGoods);
+
+        validateUser(user, reliefGoods);
 
         reliefGoods.update(request);
 
-        return reliefGoods;
+        return new ReliefGoodsUpdateRes(reliefGoods);
     }
 
     @Transactional
     public void deleteReliefGoods(Long reliefGoodsId, String userId) {
+        User user = readUser(userId);
         ReliefGoods reliefGoods = readReliefGoods(reliefGoodsId);
-        validateUser(userId, reliefGoods);
+
+        validateUser(user, reliefGoods);
+
+        user.removeReliefGoods(reliefGoods);
 
         reliefGoodsRepository.deleteById(reliefGoodsId);
     }
@@ -71,8 +83,7 @@ public class ReliefGoodsService {
                 .orElseThrow(() -> new CustomCommonException(ErrorCode.USER_NOT_FOUND));
     }
 
-    private void validateUser(String userId, ReliefGoods reliefGoods) {
-        User user = readUser(userId);
+    private void validateUser(User user, ReliefGoods reliefGoods) {
         if (!reliefGoods.getUser().equals(user)) {
             throw new CustomCommonException(ErrorCode.INVALID_USER);
         }

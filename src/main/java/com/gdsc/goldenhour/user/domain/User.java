@@ -22,8 +22,28 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<ReliefGoods> reliefGoodsList = new ArrayList<>();
 
+    public void addReliefGoods(ReliefGoods reliefGoods) {
+        reliefGoodsList.add(reliefGoods);
+        reliefGoods.setUser(this);
+    }
+
+    public void removeReliefGoods(ReliefGoods reliefGoods) {
+        reliefGoodsList.remove(reliefGoods);
+        reliefGoods.setUser(null);
+    }
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<EmergencyContact> emergencyContactList = new ArrayList<>();
+
+    public void addEmergencyContact(EmergencyContact emergencyContact) {
+        emergencyContactList.add(emergencyContact);
+        emergencyContact.setUser(this);
+    }
+
+    public void removeEmergencyContact(EmergencyContact emergencyContact) {
+        emergencyContactList.remove(emergencyContact);
+        emergencyContact.setUser(null);
+    }
 
     @Builder
     public User(String googleId) {

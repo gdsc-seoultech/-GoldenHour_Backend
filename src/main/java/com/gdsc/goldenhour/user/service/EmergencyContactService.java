@@ -5,7 +5,6 @@ import com.gdsc.goldenhour.common.exception.ErrorCode;
 import com.gdsc.goldenhour.user.domain.EmergencyContact;
 import com.gdsc.goldenhour.user.domain.User;
 import com.gdsc.goldenhour.user.dto.request.EmergencyContactReq;
-import com.gdsc.goldenhour.user.dto.response.EmergencyContactRes;
 import com.gdsc.goldenhour.user.repository.EmergencyContactRepository;
 import com.gdsc.goldenhour.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gdsc.goldenhour.user.dto.response.EmergencyContactRes.*;
+
 @RequiredArgsConstructor
 @Service
 public class EmergencyContactService {
@@ -23,40 +24,46 @@ public class EmergencyContactService {
     private final EmergencyContactRepository emergencyContactRepository;
 
     @Transactional(readOnly = true)
-    public List<EmergencyContactRes> readEmergencyContactList(String userId) {
+    public List<EmergencyContactReadRes> readEmergencyContactList(String userId) {
         User user = readUser(userId);
 
-        List<EmergencyContactRes> response = new ArrayList<>();
+        List<EmergencyContactReadRes> response = new ArrayList<>();
         user.getEmergencyContactList().forEach(
-                emergencyContact -> response.add(emergencyContact.toEmergencyContactRes())
+                emergencyContact -> response.add(new EmergencyContactReadRes(emergencyContact))
         );
         return response;
     }
 
     @Transactional
-    public EmergencyContact createEmergencyContact(EmergencyContactReq request, String userId) {
+    public EmergencyContactCreateRes createEmergencyContact(EmergencyContactReq request, String userId) {
         User user = readUser(userId);
 
         EmergencyContact emergencyContact = request.toEmergencyContact();
-        emergencyContact.setUser(user);
+        user.addEmergencyContact(emergencyContact);
 
-        return emergencyContact;
+        return new EmergencyContactCreateRes(emergencyContact);
     }
 
     @Transactional
-    public EmergencyContact updateEmergencyContact(EmergencyContactReq request, Long emergencyContactId, String userId) {
+    public EmergencyContactUpdateRes updateEmergencyContact(EmergencyContactReq request, Long emergencyContactId, String userId) {
+        User user = readUser(userId);
         EmergencyContact emergencyContact = readEmergencyContact(emergencyContactId);
-        validateUser(userId, emergencyContact);
+
+        validateUser(user, emergencyContact);
 
         emergencyContact.update(request);
 
-        return emergencyContact;
+        return new EmergencyContactUpdateRes(emergencyContact);
     }
 
     @Transactional
     public void deleteEmergencyContact(Long emergencyContactId, String userId) {
+        User user = readUser(userId);
         EmergencyContact emergencyContact = readEmergencyContact(emergencyContactId);
-        validateUser(userId, emergencyContact);
+
+        validateUser(user, emergencyContact);
+
+        user.removeEmergencyContact(emergencyContact);
 
         emergencyContactRepository.deleteById(emergencyContactId);
     }
@@ -71,8 +78,7 @@ public class EmergencyContactService {
                 .orElseThrow(() -> new CustomCommonException(ErrorCode.USER_NOT_FOUND));
     }
 
-    private void validateUser(String userId, EmergencyContact emergencyContact) {
-        User user = readUser(userId);
+    private void validateUser(User user, EmergencyContact emergencyContact) {
         if (!emergencyContact.getUser().equals(user)) {
             throw new CustomCommonException(ErrorCode.INVALID_USER);
         }

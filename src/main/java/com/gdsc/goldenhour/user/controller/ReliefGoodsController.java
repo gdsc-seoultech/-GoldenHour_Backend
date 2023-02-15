@@ -1,8 +1,9 @@
 package com.gdsc.goldenhour.user.controller;
 
 import com.gdsc.goldenhour.common.dto.ResponseDto;
-import com.gdsc.goldenhour.user.domain.ReliefGoods;
 import com.gdsc.goldenhour.user.dto.request.ReliefGoodsReq;
+import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsCreateRes;
+import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsUpdateRes;
 import com.gdsc.goldenhour.user.service.ReliefGoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,14 @@ public class ReliefGoodsController {
 
     @PostMapping("")
     public ResponseEntity<ResponseDto<?>> createReliefGoods(@Valid @RequestBody ReliefGoodsReq reliefGoodsReq, @AuthenticationPrincipal String userId) {
-        ReliefGoods createdReliefGoods = reliefGoodsService.createReliefGoods(reliefGoodsReq, userId);
-        return new ResponseEntity<>(ResponseDto.success(createdReliefGoods.toReliefGoodsRes()), HttpStatus.CREATED);
+        ReliefGoodsCreateRes reliefGoodsCreateRes = reliefGoodsService.createReliefGoods(reliefGoodsReq, userId);
+        return new ResponseEntity<>(ResponseDto.success(reliefGoodsCreateRes), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto<?>> updateReliefGoods(@Valid @RequestBody ReliefGoodsReq reliefGoodsReq, @PathVariable Long id, @AuthenticationPrincipal String userId) {
-        ReliefGoods updatedReliefGoods = reliefGoodsService.updateReliefGoods(reliefGoodsReq, id, userId);
-        return new ResponseEntity<>(ResponseDto.success(updatedReliefGoods.toReliefGoodsRes()), HttpStatus.OK);
+        ReliefGoodsUpdateRes reliefGoodsUpdateRes = reliefGoodsService.updateReliefGoods(reliefGoodsReq, id, userId);
+        return new ResponseEntity<>(ResponseDto.success(reliefGoodsUpdateRes), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

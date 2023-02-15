@@ -1,7 +1,6 @@
 package com.gdsc.goldenhour.user.domain;
 
 import com.gdsc.goldenhour.user.dto.request.EmergencyContactReq;
-import com.gdsc.goldenhour.user.dto.response.EmergencyContactRes;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +33,6 @@ public class EmergencyContact {
     }
 
     public void setUser(User user) {
-        user.getEmergencyContactList().add(this);
         this.user = user;
     }
 
@@ -43,11 +41,4 @@ public class EmergencyContact {
         phoneNumber = request.getPhoneNumber();
     }
 
-    public EmergencyContactRes toEmergencyContactRes() {
-        return EmergencyContactRes.builder()
-                .id(id)
-                .name(name)
-                .phoneNumber(phoneNumber)
-                .build();
-    }
 }

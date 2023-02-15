@@ -1,8 +1,9 @@
 package com.gdsc.goldenhour.user.controller;
 
 import com.gdsc.goldenhour.common.dto.ResponseDto;
-import com.gdsc.goldenhour.user.domain.EmergencyContact;
 import com.gdsc.goldenhour.user.dto.request.EmergencyContactReq;
+import com.gdsc.goldenhour.user.dto.response.EmergencyContactRes.EmergencyContactCreateRes;
+import com.gdsc.goldenhour.user.dto.response.EmergencyContactRes.EmergencyContactUpdateRes;
 import com.gdsc.goldenhour.user.service.EmergencyContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,14 @@ public class EmergencyContactController {
 
     @PostMapping("")
     public ResponseEntity<ResponseDto<?>> createEmergencyContact(@Valid @RequestBody EmergencyContactReq emergencyContactReq, @AuthenticationPrincipal String userId) {
-        EmergencyContact createdEmergencyContact = emergencyContactService.createEmergencyContact(emergencyContactReq, userId);
-        return new ResponseEntity<>(ResponseDto.success(createdEmergencyContact.toEmergencyContactRes()), HttpStatus.CREATED);
+        EmergencyContactCreateRes emergencyContactCreateRes = emergencyContactService.createEmergencyContact(emergencyContactReq, userId);
+        return new ResponseEntity<>(ResponseDto.success(emergencyContactCreateRes), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto<?>> updateEmergencyContact(@Valid @RequestBody EmergencyContactReq emergencyContactReq, @PathVariable Long id, @AuthenticationPrincipal String userId) {
-        EmergencyContact updatedEmergencyContact = emergencyContactService.updateEmergencyContact(emergencyContactReq, id, userId);
-        return new ResponseEntity<>(ResponseDto.success(updatedEmergencyContact.toEmergencyContactRes()), HttpStatus.OK);
+        EmergencyContactUpdateRes emergencyContactUpdateRes = emergencyContactService.updateEmergencyContact(emergencyContactReq, id, userId);
+        return new ResponseEntity<>(ResponseDto.success(emergencyContactUpdateRes), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

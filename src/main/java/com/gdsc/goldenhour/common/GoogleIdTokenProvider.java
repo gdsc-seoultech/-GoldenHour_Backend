@@ -33,7 +33,6 @@ public class GoogleIdTokenProvider {
 
         try {
             checkVerifier();
-            //TODO : try 10 times ?
             GoogleIdToken googleIdToken = verifier.verify(idToken);
 
             if (googleIdToken == null) {
