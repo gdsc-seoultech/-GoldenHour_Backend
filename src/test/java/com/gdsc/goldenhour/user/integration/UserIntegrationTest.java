@@ -44,7 +44,7 @@ public class UserIntegrationTest {
         String idToken = "validIdToken";
 
         // stub
-        when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("testId");
+        when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("userId");
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/user")
@@ -58,7 +58,7 @@ public class UserIntegrationTest {
                 .andExpect(jsonPath("$.data").value("로그인 완료"))
                 .andExpect(jsonPath("$.error").doesNotExist());
 
-        Optional<User> userOptional = userRepository.findById("testId");
+        Optional<User> userOptional = userRepository.findById("userId");
         Assertions.assertThat(userOptional)
                 .isPresent();
     }
