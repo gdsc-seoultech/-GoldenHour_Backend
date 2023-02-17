@@ -22,8 +22,6 @@ public class Disaster {
 
     private String name;
 
-    private String imgUrl;
-
     @OneToMany(mappedBy = "disaster")
     private List<COCImage> cocImageList = new ArrayList<>();
 }

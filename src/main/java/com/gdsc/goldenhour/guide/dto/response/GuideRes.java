@@ -14,8 +14,11 @@ public class GuideRes {
 
     private String name;
 
+    private String imgUrl;
+
     public GuideRes(Guide guide) {
         this.id = guide.getId();
         this.name = guide.getName();
+        this.imgUrl = guide.getImgUrl();
     }
 }

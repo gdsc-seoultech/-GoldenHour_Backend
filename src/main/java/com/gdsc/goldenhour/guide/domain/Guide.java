@@ -19,6 +19,8 @@ public class Guide {
 
     private String name;
 
+    private String imgUrl;
+
     @OneToMany(mappedBy = "guide")
     private List<GuideImage> guideImageList = new ArrayList<>();
 }

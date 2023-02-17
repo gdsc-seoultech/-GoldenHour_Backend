@@ -14,11 +14,8 @@ public class DisasterRes {
 
     private String name;
 
-    private String imgUrl;
-
     public DisasterRes(Disaster disaster) {
         this.id = disaster.getId();
         this.name = disaster.getName();
-        this.imgUrl = disaster.getImgUrl();
     }
 }
