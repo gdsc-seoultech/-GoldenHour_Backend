@@ -26,8 +26,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	// h2-db
 	runtimeOnly 'com.h2database:h2'
-	// maria-db
-	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.2'
+
+	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+	implementation 'com.mysql:mysql-connector-j:8.0.32'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
