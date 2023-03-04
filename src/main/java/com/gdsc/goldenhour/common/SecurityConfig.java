@@ -33,7 +33,7 @@ public class SecurityConfig {
         http.authorizeRequests()
                         .antMatchers("/h2-console/**").permitAll()
                         .antMatchers(HttpMethod.OPTIONS).permitAll()
-                        .antMatchers("/disaster/**", "/guide/**").permitAll()
+                        .antMatchers("/disaster/**", "/guide/**", "/message/**").permitAll()
                         .antMatchers("/user/**").authenticated().and()
                         .addFilterBefore(googleFilter, UsernamePasswordAuthenticationFilter.class)
                         .addFilterBefore(googleExceptionFilter, GoogleAuthenticationFilter.class);
