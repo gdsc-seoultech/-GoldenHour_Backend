@@ -44,8 +44,25 @@ public class DisasterService {
         return response;
     }
 
+    @Transactional(readOnly = true)
+    public List<COCImageRes> readCOCImageList(String disasterName) {
+        Disaster disaster = readDisaster(disasterName);
+
+        List<COCImageRes> response = new ArrayList<>();
+        cocImageRepository.findAllByDisaster(disaster).forEach(
+                cocImage -> response.add(new COCImageRes(cocImage))
+        );
+
+        return response;
+    }
+
     private Disaster readDisaster(Long disasterId) {
         return disasterRepository.findById(disasterId)
+                .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
+    }
+
+    private Disaster readDisaster(String disasterName) {
+        return disasterRepository.findByName(disasterName)
                 .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
     }
 }
