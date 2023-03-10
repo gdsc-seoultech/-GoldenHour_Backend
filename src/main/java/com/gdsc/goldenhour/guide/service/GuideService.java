@@ -3,7 +3,6 @@ package com.gdsc.goldenhour.guide.service;
 import com.gdsc.goldenhour.common.exception.CustomCommonException;
 import com.gdsc.goldenhour.common.exception.ErrorCode;
 import com.gdsc.goldenhour.guide.domain.Guide;
-import com.gdsc.goldenhour.guide.domain.GuideImage;
 import com.gdsc.goldenhour.guide.dto.response.GuideImageRes;
 import com.gdsc.goldenhour.guide.dto.response.GuideRes;
 import com.gdsc.goldenhour.guide.repository.GuideImageRepository;
@@ -45,8 +44,25 @@ public class GuideService {
         return response;
     }
 
+    @Transactional(readOnly = true)
+    public List<GuideImageRes> readGuideImageList(String guideName) {
+        Guide guide = readGuide(guideName);
+
+        List<GuideImageRes> response = new ArrayList<>();
+        guideImageRepository.findAllByGuide(guide).forEach(
+                guideImage -> response.add(new GuideImageRes(guideImage))
+        );
+
+        return response;
+    }
+
     private Guide readGuide(Long guideId) {
         return guideRepository.findById(guideId)
+                .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
+    }
+
+    private Guide readGuide(String guideName) {
+        return guideRepository.findByName(guideName)
                 .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
     }
 }

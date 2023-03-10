@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -30,6 +31,17 @@ public class GlobalExceptionHandler {
         errorList.forEach(
             objectError -> sb.append(objectError.getDefaultMessage())
         );
+
+        return new ResponseEntity<>(ResponseDto.fail(400, HttpStatus.BAD_REQUEST, sb.toString()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ResponseDto<Object>> missingServletRequestParameterException(MissingServletRequestParameterException e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(e.getParameterType());
+        sb.append(" : ");
+        sb.append(e.getParameterName());
+        sb.append(" 파라미터가 존재하지 않습니다.");
 
         return new ResponseEntity<>(ResponseDto.fail(400, HttpStatus.BAD_REQUEST, sb.toString()), HttpStatus.BAD_REQUEST);
     }
