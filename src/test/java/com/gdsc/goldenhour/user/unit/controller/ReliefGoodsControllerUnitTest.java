@@ -107,6 +107,7 @@ public class ReliefGoodsControllerUnitTest {
         String requestBody = new ObjectMapper().writeValueAsString(reliefGoodsReq);
 
         ReliefGoodsCreateRes reliefGoodsCreateRes = ReliefGoodsCreateRes.builder()
+                .id(1L)
                 .name("구호물품 이름")
                 .build();
 
@@ -125,6 +126,7 @@ public class ReliefGoodsControllerUnitTest {
         resultActions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.id").value(1L))
                 .andExpect(jsonPath("$.data.name").value("구호물품 이름"))
                 .andExpect(jsonPath("$.error").doesNotExist());
     }

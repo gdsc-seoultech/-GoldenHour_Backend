@@ -46,6 +46,8 @@ public class ReliefGoodsService {
         ReliefGoods reliefGoods = request.toReliefGoods();
         user.addReliefGoods(reliefGoods);
 
+        reliefGoodsRepository.save(reliefGoods);
+
         return new ReliefGoodsCreateRes(reliefGoods);
     }
 

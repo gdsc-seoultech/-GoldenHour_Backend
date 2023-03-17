@@ -6,7 +6,6 @@ import com.gdsc.goldenhour.user.domain.EmergencyContact;
 import com.gdsc.goldenhour.user.domain.User;
 import com.gdsc.goldenhour.user.dto.request.EmergencyContactReq;
 import com.gdsc.goldenhour.user.repository.EmergencyContactRepository;
-import com.gdsc.goldenhour.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +39,8 @@ public class EmergencyContactService {
 
         EmergencyContact emergencyContact = request.toEmergencyContact();
         user.addEmergencyContact(emergencyContact);
+
+        emergencyContactRepository.save(emergencyContact);
 
         return new EmergencyContactCreateRes(emergencyContact);
     }

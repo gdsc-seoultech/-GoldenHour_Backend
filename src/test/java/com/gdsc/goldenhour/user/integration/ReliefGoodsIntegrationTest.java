@@ -58,7 +58,7 @@ public class ReliefGoodsIntegrationTest {
 
     }
 
-    @Sql({"classpath:testdb/data.sql"})
+    @Sql({"classpath:testdb/data-only-user.sql"})
     @Test
     public void 구호물품_저장() throws Exception {
         // given
@@ -82,6 +82,7 @@ public class ReliefGoodsIntegrationTest {
         resultActions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.id").value(1L))
                 .andExpect(jsonPath("$.data.name").value("구호물품 3 이름"))
                 .andExpect(jsonPath("$.error").doesNotExist());
     }

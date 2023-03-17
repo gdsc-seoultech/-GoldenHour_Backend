@@ -25,9 +25,12 @@ public class ReliefGoodsRes {
     @Getter
     @AllArgsConstructor
     public static class ReliefGoodsCreateRes {
+        private Long id;
+
         private String name;
 
         public ReliefGoodsCreateRes(ReliefGoods reliefGoods) {
+            this.id = reliefGoods.getId();
             this.name = reliefGoods.getName();
         }
     }

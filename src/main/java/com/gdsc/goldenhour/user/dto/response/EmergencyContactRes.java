@@ -28,11 +28,14 @@ public class EmergencyContactRes {
     @Getter
     @AllArgsConstructor
     public static class EmergencyContactCreateRes {
+        private Long id;
+
         private String name;
 
         private String phoneNumber;
 
         public EmergencyContactCreateRes(EmergencyContact emergencyContact) {
+            this.id = emergencyContact.getId();
             this.name = emergencyContact.getName();
             this.phoneNumber = emergencyContact.getPhoneNumber();
         }

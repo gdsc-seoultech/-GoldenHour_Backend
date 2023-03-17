@@ -111,6 +111,7 @@ public class EmergencyContactControllerUnitTest {
         String requestBody = new ObjectMapper().writeValueAsString(emergencyContactReq);
 
         EmergencyContactCreateRes emergencyContactCreateRes = EmergencyContactCreateRes.builder()
+                .id(1L)
                 .name("비상연락망 이름")
                 .phoneNumber("010-1111-1111")
                 .build();
@@ -130,6 +131,7 @@ public class EmergencyContactControllerUnitTest {
         resultActions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.id").value(1L))
                 .andExpect(jsonPath("$.data.name").value("비상연락망 이름"))
                 .andExpect(jsonPath("$.data.phoneNumber").value("010-1111-1111"))
                 .andExpect(jsonPath("$.error").doesNotExist());

@@ -58,7 +58,7 @@ public class EmergencyContactIntegrationTest {
 
     }
 
-    @Sql({"classpath:testdb/data.sql"})
+    @Sql({"classpath:testdb/data-only-user.sql"})
     @Test
     public void 비상연락망_저장() throws Exception {
         // given
@@ -83,6 +83,7 @@ public class EmergencyContactIntegrationTest {
         resultActions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.id").value(1L))
                 .andExpect(jsonPath("$.data.name").value("비상연락망 3 이름"))
                 .andExpect(jsonPath("$.data.phoneNumber").value("010-3333-3333"))
                 .andExpect(jsonPath("$.error").doesNotExist());
