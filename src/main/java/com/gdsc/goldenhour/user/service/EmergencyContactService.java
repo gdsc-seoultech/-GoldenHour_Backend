@@ -20,12 +20,12 @@ import static com.gdsc.goldenhour.user.dto.response.EmergencyContactRes.*;
 @Service
 public class EmergencyContactService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final EmergencyContactRepository emergencyContactRepository;
 
     @Transactional(readOnly = true)
     public List<EmergencyContactReadRes> readEmergencyContactList(String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
 
         List<EmergencyContactReadRes> response = new ArrayList<>();
         user.getEmergencyContactList().forEach(
@@ -36,7 +36,7 @@ public class EmergencyContactService {
 
     @Transactional
     public EmergencyContactCreateRes createEmergencyContact(EmergencyContactReq request, String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
 
         EmergencyContact emergencyContact = request.toEmergencyContact();
         user.addEmergencyContact(emergencyContact);
@@ -46,7 +46,7 @@ public class EmergencyContactService {
 
     @Transactional
     public EmergencyContactUpdateRes updateEmergencyContact(EmergencyContactReq request, Long emergencyContactId, String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
         EmergencyContact emergencyContact = readEmergencyContact(emergencyContactId);
 
         validateUser(user, emergencyContact);
@@ -58,7 +58,7 @@ public class EmergencyContactService {
 
     @Transactional
     public void deleteEmergencyContact(Long emergencyContactId, String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
         EmergencyContact emergencyContact = readEmergencyContact(emergencyContactId);
 
         validateUser(user, emergencyContact);
@@ -71,11 +71,6 @@ public class EmergencyContactService {
     private EmergencyContact readEmergencyContact(Long emergencyContactId) {
         return emergencyContactRepository.findById(emergencyContactId)
                 .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
-    }
-
-    private User readUser(String userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new CustomCommonException(ErrorCode.USER_NOT_FOUND));
     }
 
     private void validateUser(User user, EmergencyContact emergencyContact) {

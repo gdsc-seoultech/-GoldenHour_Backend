@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +23,12 @@ import static com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsUp
 @Service
 public class ReliefGoodsService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final ReliefGoodsRepository reliefGoodsRepository;
 
     @Transactional(readOnly = true)
     public List<ReliefGoodsReadRes> readReliefGoodsList(String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
 
         List<ReliefGoodsReadRes> response = new ArrayList<>();
         user.getReliefGoodsList().forEach(
@@ -40,7 +41,7 @@ public class ReliefGoodsService {
 
     @Transactional
     public ReliefGoodsCreateRes createReliefGoods(ReliefGoodsReq request, String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
 
         ReliefGoods reliefGoods = request.toReliefGoods();
         user.addReliefGoods(reliefGoods);
@@ -50,7 +51,7 @@ public class ReliefGoodsService {
 
     @Transactional
     public ReliefGoodsUpdateRes updateReliefGoods(ReliefGoodsReq request, Long reliefGoodsId, String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
         ReliefGoods reliefGoods = readReliefGoods(reliefGoodsId);
 
         validateUser(user, reliefGoods);
@@ -62,7 +63,7 @@ public class ReliefGoodsService {
 
     @Transactional
     public void deleteReliefGoods(Long reliefGoodsId, String userId) {
-        User user = readUser(userId);
+        User user = userService.readUser(userId);
         ReliefGoods reliefGoods = readReliefGoods(reliefGoodsId);
 
         validateUser(user, reliefGoods);
@@ -75,11 +76,6 @@ public class ReliefGoodsService {
     private ReliefGoods readReliefGoods(Long reliefGoodsId) {
         return reliefGoodsRepository.findById(reliefGoodsId)
                 .orElseThrow(() -> new CustomCommonException(ErrorCode.ITEM_NOT_FOUND));
-    }
-
-    private User readUser(String userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new CustomCommonException(ErrorCode.USER_NOT_FOUND));
     }
 
     private void validateUser(User user, ReliefGoods reliefGoods) {
