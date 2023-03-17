@@ -30,7 +30,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,7 +59,7 @@ public class ReliefGoodsControllerUnitTest {
     }
 
     @Test
-    @WithMockUser(username = "userId", authorities={"ROLE_USER"})
+    @WithMockUser(username = "userId", authorities = {"ROLE_USER"})
     public void 구호물품_조회() throws Exception {
         // given
         String userIdToken = "userIdToken";
@@ -91,13 +90,12 @@ public class ReliefGoodsControllerUnitTest {
                 .andExpect(jsonPath("$.data", Matchers.hasSize(2)))
                 .andExpect(jsonPath("$.data.[0].id").value(1))
                 .andExpect(jsonPath("$.data.[0].name").value("구호물품 1 이름"))
-                .andExpect(jsonPath("$.data.error").doesNotExist())
-                .andDo(print());
+                .andExpect(jsonPath("$.error").doesNotExist());
 
     }
 
     @Test
-    @WithMockUser(username = "userId", authorities={"ROLE_USER"})
+    @WithMockUser(username = "userId", authorities = {"ROLE_USER"})
     public void 구호물품_저장() throws Exception {
         // given
         String userIdToken = "userIdToken";
@@ -128,12 +126,11 @@ public class ReliefGoodsControllerUnitTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.name").value("구호물품 이름"))
-                .andExpect(jsonPath("$.data.error").doesNotExist())
-                .andDo(print());
+                .andExpect(jsonPath("$.error").doesNotExist());
     }
 
     @Test
-    @WithMockUser(username = "userId", authorities={"ROLE_USER"})
+    @WithMockUser(username = "userId", authorities = {"ROLE_USER"})
     public void 구호물품_수정() throws Exception {
         // given
         String userIdToken = "userIdToken";
@@ -165,12 +162,11 @@ public class ReliefGoodsControllerUnitTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.name").value("구호물품 이름 수정"))
-                .andExpect(jsonPath("$.data.error").doesNotExist())
-                .andDo(print());
+                .andExpect(jsonPath("$.error").doesNotExist());
     }
 
     @Test
-    @WithMockUser(username = "userId", authorities={"ROLE_USER"})
+    @WithMockUser(username = "userId", authorities = {"ROLE_USER"})
     public void 구호물품_삭제() throws Exception {
         // given
         String userIdToken = "userIdToken";
@@ -191,6 +187,6 @@ public class ReliefGoodsControllerUnitTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data").value("구호물품 삭제 완료"))
-                .andDo(print());
+                .andExpect(jsonPath("$.error").doesNotExist());
     }
 }

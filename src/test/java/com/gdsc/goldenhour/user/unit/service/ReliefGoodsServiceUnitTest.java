@@ -6,8 +6,8 @@ import com.gdsc.goldenhour.user.domain.User;
 import com.gdsc.goldenhour.user.dto.request.ReliefGoodsReq;
 import com.gdsc.goldenhour.user.dto.response.ReliefGoodsRes.ReliefGoodsReadRes;
 import com.gdsc.goldenhour.user.repository.ReliefGoodsRepository;
-import com.gdsc.goldenhour.user.repository.UserRepository;
 import com.gdsc.goldenhour.user.service.ReliefGoodsService;
+import com.gdsc.goldenhour.user.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ public class ReliefGoodsServiceUnitTest {
     ReliefGoodsRepository reliefGoodsRepository;
 
     @Mock
-    UserRepository userRepository;
+    UserService userService;
 
     @Test
     public void 구호물품_조회() {
@@ -51,7 +51,7 @@ public class ReliefGoodsServiceUnitTest {
 
 
         // stub - 동작 지정
-        when(userRepository.findById("userId")).thenReturn(Optional.of(user));
+        when(userService.readUser("userId")).thenReturn(user);
 
         // when
         List<ReliefGoodsReadRes> reliefGoodsReadResList = reliefGoodsService.readReliefGoodsList("userId");
@@ -61,19 +61,6 @@ public class ReliefGoodsServiceUnitTest {
 
         Assertions.assertThat(reliefGoodsReadResList.get(0).getName()).isEqualTo("구호물품 1 이름");
         Assertions.assertThat(reliefGoodsReadResList.get(1).getName()).isEqualTo("구호물품 2 이름");
-    }
-
-    @Test
-    public void 구호물품_조회_USER_NOT_FOUND() {
-        // given
-
-        // stub - 동작 지정
-        when(userRepository.findById("notFoundUserId")).thenReturn(Optional.empty());
-
-        // when & then
-        Assertions.assertThatThrownBy(() -> reliefGoodsService.readReliefGoodsList("notFoundUserId"))
-                .isInstanceOf(CustomCommonException.class)
-                .hasMessage("존재하지 않는 사용자입니다.");
     }
 
     @Test
@@ -87,29 +74,13 @@ public class ReliefGoodsServiceUnitTest {
                 .name("구호물품 이름").build();
 
         // stub - 동작 지정
-        when(userRepository.findById("userId")).thenReturn(Optional.of(user));
+        when(userService.readUser("userId")).thenReturn(user);
 
         // when
         ReliefGoodsCreateRes reliefGoodsCreateRes = reliefGoodsService.createReliefGoods(reliefGoodsReq, "userId");
 
         // then
         Assertions.assertThat(reliefGoodsCreateRes.getName()).isEqualTo("구호물품 이름");
-    }
-
-    @Test
-    public void 구호물품_저장_USER_NOT_FOUND_ERROR() {
-        // given
-        ReliefGoodsReq reliefGoodsReq = ReliefGoodsReq.builder()
-                .name("구호물품 이름").build();
-
-        // stub - 동작 지정
-        when(userRepository.findById("notFoundUserId")).thenReturn(Optional.empty());
-
-        // when & then
-        Assertions.assertThatThrownBy(() -> reliefGoodsService.createReliefGoods(reliefGoodsReq, "notFoundUserId"))
-                .isInstanceOf(CustomCommonException.class)
-                .hasMessage("존재하지 않는 사용자입니다.");
-
     }
 
     @Test
@@ -129,7 +100,7 @@ public class ReliefGoodsServiceUnitTest {
 
         // stub - 동작 지정
         when(reliefGoodsRepository.findById(reliefGoodsId)).thenReturn(Optional.of(reliefGoods));
-        when(userRepository.findById("userId")).thenReturn(Optional.of(user));
+        when(userService.readUser("userId")).thenReturn(user);
 
         // when
         ReliefGoodsUpdateRes reliefGoodsUpdateRes = reliefGoodsService.updateReliefGoods(reliefGoodsReq, reliefGoodsId, "userId");
@@ -152,7 +123,7 @@ public class ReliefGoodsServiceUnitTest {
 
         // stub - 동작 지정
         when(reliefGoodsRepository.findById(not_found_reliefGoodsId)).thenReturn(Optional.empty());
-        when(userRepository.findById("userId")).thenReturn(Optional.of(user));
+        when(userService.readUser("userId")).thenReturn(user);
 
         // when & then
         Assertions.assertThatThrownBy(() -> reliefGoodsService.updateReliefGoods(reliefGoodsReq, not_found_reliefGoodsId, "userId"))
@@ -180,7 +151,7 @@ public class ReliefGoodsServiceUnitTest {
 
         // stub - 동작 지정
         when(reliefGoodsRepository.findById(reliefGoodsId)).thenReturn(Optional.of(reliefGoods));
-        when(userRepository.findById("invalidUserId")).thenReturn(Optional.of(invalidUser));
+        when(userService.readUser("invalidUserId")).thenReturn(invalidUser);
 
         // when & then
         Assertions.assertThatThrownBy(() -> reliefGoodsService.updateReliefGoods(reliefGoodsReq, reliefGoodsId, "invalidUserId"))
@@ -207,7 +178,7 @@ public class ReliefGoodsServiceUnitTest {
 
         // stub - 동작 지정
         when(reliefGoodsRepository.findById(reliefGoods_1_id)).thenReturn(Optional.of(reliefGoods_1));
-        when(userRepository.findById("userId")).thenReturn(Optional.of(user));
+        when(userService.readUser("userId")).thenReturn(user);
 
         // when
         reliefGoodsService.deleteReliefGoods(reliefGoods_1_id, "userId");
@@ -230,7 +201,7 @@ public class ReliefGoodsServiceUnitTest {
 
         // stub - 동작 지정
         when(reliefGoodsRepository.findById(not_found_reliefGoodsId)).thenReturn(Optional.empty());
-        when(userRepository.findById("userId")).thenReturn(Optional.of(user));
+        when(userService.readUser("userId")).thenReturn(user);
 
         // when & then
         Assertions.assertThatThrownBy(() -> reliefGoodsService.deleteReliefGoods(not_found_reliefGoodsId, "userId"))
@@ -255,7 +226,7 @@ public class ReliefGoodsServiceUnitTest {
 
         // stub - 동작 지정
         when(reliefGoodsRepository.findById(reliefGoodsId)).thenReturn(Optional.of(reliefGoods));
-        when(userRepository.findById("invalidUserId")).thenReturn(Optional.of(invalidUser));
+        when(userService.readUser("invalidUserId")).thenReturn(invalidUser);
 
         // when & then
         Assertions.assertThatThrownBy(() -> reliefGoodsService.deleteReliefGoods(reliefGoodsId, "invalidUserId"))

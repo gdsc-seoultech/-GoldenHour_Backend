@@ -31,30 +31,32 @@ public class ReliefGoodsIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Sql({"classpath:testdb/data.sql"})
+    @Test
+    public void 구호물품_조회() throws Exception {
+        // given
+        String idToken = "validIdToken";
 
-    //TODO : data : null
-//    @Sql({"classpath:testdb/data.sql"})
-//    @Test
-//    public void 구호물품_조회() throws Exception {
-//        // given
-//        String idToken = "validIdToken";
-//
-//        // stub
-//        when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("userId");
-//
-//        // when
-//        ResultActions resultActions = mockMvc.perform(get("/user/relief_goods")
-//                .header("Authorization", idToken)
-//                .accept(MediaType.APPLICATION_JSON));
-//
-//        // then
-//        resultActions
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.success").value(true))
-//                .andExpect(jsonPath("$.error").doesNotExist())
-//                .andDo(print());
-//
-//    }
+        // stub
+        when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("userId");
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/user/relief_goods")
+                .header("Authorization", idToken)
+                .accept(MediaType.APPLICATION_JSON));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.length()").value(2))
+                .andExpect(jsonPath("$.data[0].id").value(1))
+                .andExpect(jsonPath("$.data[0].name").value("구호물품 1 이름"))
+                .andExpect(jsonPath("$.data[1].id").value(2))
+                .andExpect(jsonPath("$.data[1].name").value("구호물품 2 이름"))
+                .andExpect(jsonPath("$.error").doesNotExist());
+
+    }
 
     @Sql({"classpath:testdb/data.sql"})
     @Test
@@ -91,7 +93,8 @@ public class ReliefGoodsIntegrationTest {
         String idToken = "validIdToken";
         Long reliefGoodsId = 1L;
         ReliefGoodsReq reliefGoodsReq = ReliefGoodsReq.builder()
-                .name("구호물품 이름 수정").build();
+                .name("구호물품 이름 수정")
+                .build();
         String requestBody = new ObjectMapper().writeValueAsString(reliefGoodsReq);
 
         // stub - 동작 지정
@@ -119,7 +122,8 @@ public class ReliefGoodsIntegrationTest {
         String idToken = "validIdToken";
         Long not_found_reliefGoodsId = 3L;
         ReliefGoodsReq reliefGoodsReq = ReliefGoodsReq.builder()
-                .name("구호물품 이름 수정").build();
+                .name("구호물품 이름 수정")
+                .build();
         String requestBody = new ObjectMapper().writeValueAsString(reliefGoodsReq);
 
         // stub - 동작 지정
@@ -147,16 +151,17 @@ public class ReliefGoodsIntegrationTest {
     public void 구호물품_수정_INVALID_USER() throws Exception {
         // given
         String idToken = "validIdToken";
-        Long not_found_reliefGoodsId = 1L;
+        Long reliefGoodsId = 1L;
         ReliefGoodsReq reliefGoodsReq = ReliefGoodsReq.builder()
-                .name("구호물품 이름 수정").build();
+                .name("구호물품 이름 수정")
+                .build();
         String requestBody = new ObjectMapper().writeValueAsString(reliefGoodsReq);
 
         // stub - 동작 지정
         when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("invalidUserId");
 
         // when
-        ResultActions resultActions = mockMvc.perform(put("/user/relief_goods/{id}", not_found_reliefGoodsId)
+        ResultActions resultActions = mockMvc.perform(put("/user/relief_goods/{id}", reliefGoodsId)
                 .header("Authorization", idToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody)
@@ -170,6 +175,29 @@ public class ReliefGoodsIntegrationTest {
                 .andExpect(jsonPath("$.error.status").value(403))
                 .andExpect(jsonPath("$.error.httpStatus").value(HttpStatus.FORBIDDEN.name()))
                 .andExpect(jsonPath("$.error.message").value("올바른 사용자가 아닙니다."));
+    }
+
+    @Sql({"classpath:testdb/data.sql"})
+    @Test
+    public void 구호물품_삭제() throws Exception{
+        // given
+        String idToken = "validIdToken";
+        Long reliefGoodsId = 1L;
+
+        // stub - 동작 지정
+        when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("userId");
+
+        // when
+        ResultActions resultActions = mockMvc.perform(delete("/user/relief_goods/{id}", reliefGoodsId)
+                .header("Authorization", idToken)
+                .accept(MediaType.APPLICATION_JSON));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data").value("구호물품 삭제 완료"))
+                .andExpect(jsonPath("$.error").doesNotExist());
     }
 
     @Sql({"classpath:testdb/data.sql"})
@@ -202,13 +230,13 @@ public class ReliefGoodsIntegrationTest {
     public void 구호물풀_삭제_INVALID_USER() throws Exception {
         // given
         String idToken = "validIdToken";
-        Long not_found_reliefGoodsId = 1L;
+        Long reliefGoodsId = 1L;
 
         // stub - 동작 지정
         when(googleIdTokenProvider.provideGoogleId(idToken)).thenReturn("invalidUserId");
 
         // when
-        ResultActions resultActions = mockMvc.perform(delete("/user/relief_goods/{id}", not_found_reliefGoodsId)
+        ResultActions resultActions = mockMvc.perform(delete("/user/relief_goods/{id}", reliefGoodsId)
                 .header("Authorization", idToken)
                 .accept(MediaType.APPLICATION_JSON));
 
