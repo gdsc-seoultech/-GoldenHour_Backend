@@ -12,8 +12,8 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 ## Feature
 ### Safety Guide
 - It provides a slide webtoon format using images and text to show how to respond to emergencies we may encounter, such as CPR and airway obstruction. 
-- It provides CPR compression points using instant segmentation (yolo v5) to assist in effective CPR.
-- It provides hemostasis points based on OPENCV to assist in hemostasis in case of bleeding.
+- It provides CPR compression points using MLKit Pose Detection to assist in effective CPR.
+- It provides hemostasis points based on TFlite Object Detection to assist in hemostasis in case of bleeding.
 
 ### Disaster first aid
 - Based on the disaster message, the slide webtoon format using images and text to provide actions that correspond to the current disaster situation.
@@ -24,9 +24,13 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 - It provides the current user's location so that it can be utilized in reporting.
 - The question/answer format allows users to quickly and easily fill out the necessary information to submit an emergency text report.
 
+### Safety Map
+- It provides the location of safety amenities based on the user's current location utilizing Google Maps. 
+- Safety amenities provided include hospitals/emergency rooms, pharmacies, AEDs, fire extinguishers, shelters, and transitional housing.
+
 ## Demo Video
 
-## Team
+## Team Member
 <table algin="center">
    <tr>
       <td colspan="2" align="center"><strong>Android</strong></td>
