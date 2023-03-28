@@ -58,4 +58,6 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 ## Project Structure
 ![](golden-hour structure.png)
 
+---
+
 ## 각 파트별 코드 설명
