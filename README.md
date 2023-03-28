@@ -1,7 +1,5 @@
 # ⏱️️ 2023 Solution Challenge : Golden Hour ⏱️
 
----
-
 ## What is Golden Hour ?
 Many types of natural disasters are now five times more common in the world than they were 50 years ago. Each year, an increasing number of people are injured or killed by natural disasters.
 
@@ -11,7 +9,6 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 > ### The Meaning of Golden Hour
 > The first hour after the occurrence of a traumatic injury, considered the most critical for successful emergency treatment.
 
----
 ## Feature
 ### Safety Guide
 - It provides a slide webtoon format using images and text to show how to respond to emergencies we may encounter, such as CPR and airway obstruction. 
@@ -27,10 +24,8 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 - It provides the current user's location so that it can be utilized in reporting.
 - The question/answer format allows users to quickly and easily fill out the necessary information to submit an emergency text report.
 
----
 ## Demo Video
 
----
 ## Team
 <table algin="center">
    <tr>
@@ -53,11 +48,9 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
   <tr>
 </table> 
 
----
 
 ## Project Structure
 <img width="755" alt="golden-hour structure" src="https://user-images.githubusercontent.com/64399505/228250494-3c6ecca2-e35f-4a83-99c9-5ad0ba452dc3.png">
 
----
 
 ## 각 파트별 코드 설명
