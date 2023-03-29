@@ -30,6 +30,16 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 
 ## Demo Video
 
+## Project Structure
+<img width="755" alt="golden-hour structure" src="https://user-images.githubusercontent.com/64399505/228250494-3c6ecca2-e35f-4a83-99c9-5ad0ba452dc3.png">
+
+## Detailed implementations using Google technology
+### Backend
+- To provide the Backend technology to the client Android app in the form of a REST API, we used several services from Google Cloud Platform (GCP).
+- We used MySQL, a relational database engine, to create, read, update, and delete data. We used Google SQL, a fully managed relational database service provided by GCP, to make MySQL accessible to Spring Project via Data JPA.
+- To create communication via REST APIs, we used Spring Project, a web framework in JAVA. We used Google Compute Engine, a virtual machine service provided by GCP, to access the REST API provided by Spring Project through Retrofit on Android.
+- To store and serve the slide webtoon images for the first aid and safety guide, we needed to use a cloud file service. We used Google Cloud Storage, a managed service for storing unstructured data provided by GCP, to serve the slide webtoon images with a public URL for each image.
+
 ## Team Member
 <table algin="center">
    <tr>
@@ -52,9 +62,25 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
   <tr>
 </table> 
 
-
-## Project Structure
-<img width="755" alt="golden-hour structure" src="https://user-images.githubusercontent.com/64399505/228250494-3c6ecca2-e35f-4a83-99c9-5ad0ba452dc3.png">
-
-
-## 각 파트별 코드 설명
+## Repositories
+<table algin="center">
+   <tr>
+      <td colspan="1" align="center"><strong>Project</strong></td>
+      <td colspan="1" align="center"><strong>Android</strong></td>
+      <td colspan="1" align="center"><strong>Back-End</strong></td>
+      <td colspan="1" align="center"><strong>ML</strong></td>
+   </tr>
+  <tr>
+     <td align="center">
+        <a href="https://github.com/orgs/gdsc-seoultech/projects/3/views/1"><img src="" width="150px" alt="project"/></a>
+     </td>
+     <td align="center">
+        <a href="https://github.com/gdsc-seoultech/GoldenHour_Android"><img src="" width="150px" alt="android"/></a>
+     </td>
+    <td align="center">
+        <a href="https://github.com/gdsc-seoultech/GoldenHour_Backend"><img src="" width="150px;" alt="Back-end"/></a>
+    </td>
+     <td align="center">
+        <a href="https://github.com/jwyeeh-dev/GoldenHour_DL"><img src="" width="150px" alt="ML"/></a>
+  <tr>
+</table> 
