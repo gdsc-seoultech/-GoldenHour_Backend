@@ -41,7 +41,7 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 - To store and serve the slide webtoon images for the first aid and safety guide, we needed to use a cloud file service. We used Google Cloud Storage, a managed service for storing unstructured data provided by GCP, to serve the slide webtoon images with a public URL for each image.
 
 ## Team Member
-<table algin="center">
+<table algin="center" overflow-y="hidden">
    <tr>
       <td colspan="2" align="center"><strong>Android</strong></td>
       <td colspan="1" align="center"><strong>Back-End</strong></td>
@@ -65,7 +65,7 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 ## Repositories
 <table algin="center">
    <tr>
-      <td align="center"><a href="https://github.com/orgs/gdsc-seoultech/projects/3/views/1"><strong>Project</strong></a></td>
+      <td align="center"><a href="https://github.com/orgs/gdsc-seoultech/projects/3"><strong>Project</strong></a></td>
       <td align="center"><a href="https://github.com/gdsc-seoultech/GoldenHour_Android"><strong>Android</strong></a></td>
       <td align="center"><a href="https://github.com/gdsc-seoultech/GoldenHour_Backend"><strong>Back-End</strong></a></td>
       <td align="center"><a href="https://github.com/jwyeeh-dev/GoldenHour_DL"><strong>DL</strong></a></td>
