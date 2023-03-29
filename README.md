@@ -36,9 +36,15 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 ## Detailed implementations using Google technology
 ### Backend
 - To provide the **Backend technology to the client Android app in the form of a REST API**, we used several services from Google Cloud Platform (**GCP**).
-- We used MySQL, a relational database engine, to create, read, update, and delete data. We used **Google SQL**, a fully managed relational database service provided by GCP, **to make MySQL accessible to Spring Project via Data JPA**.
-- To create communication via REST APIs, we used Spring Project, a web framework in JAVA. We used **Google Compute Engine**, a virtual machine service provided by GCP, **to access the REST API provided by Spring Project through Retrofit on Android**.
-- To store and serve the slide webtoon images for the first aid and safety guide, we needed to use a cloud file service. We used **Google Cloud Storage**, a managed service for storing unstructured data provided by GCP, **to serve the slide webtoon images with a public URL for each image**.
+
+- To create, read, update, and delete data, we used MySQL, a relational database engine,
+<br/>We used **Google SQL**, a fully managed relational database service provided by GCP, **to make MySQL accessible to Spring Project via Data JPA**.
+
+- To create communication via REST APIs, we used Spring Project, a web framework in JAVA. 
+<br/>We used **Google Compute Engine**, a virtual machine service provided by GCP, **to access the REST API provided by Spring Project through Retrofit on Android**.
+
+- To store and serve the slide webtoon images for the first aid and safety guide, we needed to use a Cloud File service. 
+<br/>We used **Google Cloud Storage**, a managed service for storing unstructured data provided by GCP, **to serve the slide webtoon images with a public URL for each image**.
 
 ## Team Member
 <table algin="center" overflow-y="hidden">
