@@ -45,7 +45,7 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
    <tr>
       <td colspan="2" align="center"><strong>Android</strong></td>
       <td colspan="1" align="center"><strong>Back-End</strong></td>
-      <td colspan="1" align="center"><strong>ML</strong></td>
+      <td colspan="1" align="center"><strong>DL</strong></td>
    </tr>
   <tr>
      <td align="center">
@@ -65,22 +65,9 @@ To solve this problem, we created Golden Hour, an app that provides safety guide
 ## Repositories
 <table algin="center">
    <tr>
-      <td colspan="1" align="center"><strong>Project</strong></td>
-      <td colspan="1" align="center"><strong>Android</strong></td>
-      <td colspan="1" align="center"><strong>Back-End</strong></td>
-      <td colspan="1" align="center"><strong>ML</strong></td>
+      <td align="center"><a href="https://github.com/orgs/gdsc-seoultech/projects/3/views/1"><strong>Project</strong></a></td>
+      <td align="center"><a href="https://github.com/gdsc-seoultech/GoldenHour_Android"><strong>Android</strong></a></td>
+      <td align="center"><a href="https://github.com/gdsc-seoultech/GoldenHour_Backend"><strong>Back-End</strong></a></td>
+      <td align="center"><a href="https://github.com/jwyeeh-dev/GoldenHour_DL"><strong>DL</strong></a></td>
    </tr>
-  <tr>
-     <td align="center">
-        <a href="https://github.com/orgs/gdsc-seoultech/projects/3/views/1"><img src="" width="150px" alt="project"/></a>
-     </td>
-     <td align="center">
-        <a href="https://github.com/gdsc-seoultech/GoldenHour_Android"><img src="" width="150px" alt="android"/></a>
-     </td>
-    <td align="center">
-        <a href="https://github.com/gdsc-seoultech/GoldenHour_Backend"><img src="" width="150px;" alt="Back-end"/></a>
-    </td>
-     <td align="center">
-        <a href="https://github.com/jwyeeh-dev/GoldenHour_DL"><img src="" width="150px" alt="ML"/></a>
-  <tr>
 </table> 
