@@ -9,13 +9,16 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 > ### The Meaning of Golden Hour
 > The first hour after the occurrence of a traumatic injury, considered the most critical for successful emergency treatment.
 
+## Download
+[Golden Hour v1.0.0](https://github.com/gdsc-seoultech/GoldenHour_Android/releases/tag/v1.0.0)
+
 ## Feature
 ### Safety Guide
 - It provides a slide image format using images and text to show how to respond to emergencies we may encounter, such as CPR and airway obstruction. 
 - It provides CPR compression points using MLKit Pose Detection to assist in effective CPR.
 - It provides hemostasis points based on TFlite Object Detection to assist in hemostasis in case of bleeding.
 
-### Disaster First Aid
+### Disaster Behavior Tips
 - Based on the disaster message, the slide image format using images and text to provide actions that correspond to the current disaster situation.
 - Users can carefully check their pre-set emergency contacts and relief supplies through the checklist.
 
@@ -45,6 +48,20 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 
 - To store and serve the slide images for the first aid and safety guide, we needed to use a Cloud File service. 
 <br/>We used **Google Cloud Storage**, a managed service for storing unstructured data provided by GCP, **to serve the slide images with a public URL for each image**.
+
+### Android
+
+- We made it possible for users **signed in with a Google account** to register, view, edit, and delete relief supplies and emergency contacts for disasters or emergencies.
+- We used **Google Maps** to quickly locate nearby hospitals, emergency rooms, pharmacies, and AEDs based on the user's current location.
+- Using the **ML Kit's Pose Detection model** and CameraX, we made it possible to detect the upper body of a person who collapsed from cardiac arrest and show the CPR compression point from it. As a next step, we made the model detect the angle of the rescuer's arm and sound an alert whenever it is less than 120 degrees. This allows CPR to proceed in a more correct posture.
+- Using the **TFLite custom object detection model** and CameraX, we implemented it to detect bleeding or wounded areas and mark their center of gravity as hemostatic points.
+
+###DL
+- To provide the specific DL technology to the Android Application, we used several model and services from Google Technologies.
+- To train, provide the object detection and recognition model about the bleeding wounds of the patient, We used **Google Tensorflow libraries**, especially **TFLite** as a mobile library to deploy the model to the Android application.
+- To make lightweight the wounds detection and recognition model to put in Android App, We also amke the custom model based on **MobileNet_V2 from Tensorflow Hub by Google**.
+- To detect the precise body landmarks of the patient, we used the **mediapipe pose detector from the ML Kit.** Mediapipe pose detector is inspired by **the lightWeighted BlazeFace model** as a proxy for a person detector.
+- If you want to see more information, please see the Additional DL Documentation below.
 
 ## Team Member
 <table algin="center" overflow-y="hidden">
