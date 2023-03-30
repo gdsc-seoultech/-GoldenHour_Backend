@@ -11,12 +11,12 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 
 ## Feature
 ### Safety Guide
-- It provides a slide webtoon format using images and text to show how to respond to emergencies we may encounter, such as CPR and airway obstruction. 
+- It provides a slide image format using images and text to show how to respond to emergencies we may encounter, such as CPR and airway obstruction. 
 - It provides CPR compression points using MLKit Pose Detection to assist in effective CPR.
 - It provides hemostasis points based on TFlite Object Detection to assist in hemostasis in case of bleeding.
 
 ### Disaster First Aid
-- Based on the disaster message, the slide webtoon format using images and text to provide actions that correspond to the current disaster situation.
+- Based on the disaster message, the slide image format using images and text to provide actions that correspond to the current disaster situation.
 - Users can carefully check their pre-set emergency contacts and relief supplies through the checklist.
 
 ### Emergency Report
@@ -43,8 +43,8 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 - To create communication via REST APIs, we used Spring Project, a web framework in JAVA. 
 <br/>We used **Google Compute Engine**, a virtual machine service provided by GCP, **to access the REST API provided by Spring Project through Retrofit on Android**.
 
-- To store and serve the slide webtoon images for the first aid and safety guide, we needed to use a Cloud File service. 
-<br/>We used **Google Cloud Storage**, a managed service for storing unstructured data provided by GCP, **to serve the slide webtoon images with a public URL for each image**.
+- To store and serve the slide images for the first aid and safety guide, we needed to use a Cloud File service. 
+<br/>We used **Google Cloud Storage**, a managed service for storing unstructured data provided by GCP, **to serve the slide images with a public URL for each image**.
 
 ## Team Member
 <table algin="center" overflow-y="hidden">
