@@ -32,6 +32,7 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 - Safety amenities provided include hospitals/emergency rooms, pharmacies, AEDs, fire extinguishers, shelters, and transitional housing.
 
 ## Demo Video
+<a href="https://www.youtube.com/watch?v=Y5dD_Y7RQMM&ab_channel=GDSCSeoultech"><img width="755" src="https://user-images.githubusercontent.com/68090939/228529082-1306ec5d-6bff-4296-b5ba-8a3cc807b88c.png"/></a>
 
 ## Project Structure
 <img width="755" alt="golden-hour structure" src="https://user-images.githubusercontent.com/64399505/228250494-3c6ecca2-e35f-4a83-99c9-5ad0ba452dc3.png">
