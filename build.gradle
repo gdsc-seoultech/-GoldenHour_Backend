@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.8'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'jacoco'
 }
 
 group = 'com.gdsc'
@@ -44,4 +45,54 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy 'jacocoTestReport'
 }
+
+// jacoco setting
+jacocoTestReport {
+
+	dependsOn test // tests are required to run before generating the report
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"com/gdsc/goldenhour/common/*",
+					"com/gdsc/goldenhour/disaster/*",
+					"com/gdsc/goldenhour/guide/*",
+					"com/gdsc/goldenhour/messageReport/*",
+					"com/gdsc/goldenhour/GoldenhourApplication.class",
+					"com/gdsc/goldenhour/user/dto/*"
+			])
+		}))
+
+	}
+
+	reports {
+		html.enabled(true)
+		xml.enabled(false)
+		csv.enabled(false)
+
+		//  html.destination file("$buildDir/jacocoHtml")
+		//  xml.destination file("$buildDir/jacoco.xml")
+	}
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'METHOD'
+
+			limit {
+				counter = 'METHOD'
+				value = 'COVEREDRATIO'
+				minimum = 0.90
+			}
+
+			excludes = []
+
+		}
+	}
+}
+

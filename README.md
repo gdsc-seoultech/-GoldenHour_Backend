@@ -37,6 +37,10 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 ## Project Structure
 <img width="755" alt="golden-hour structure" src="https://user-images.githubusercontent.com/64399505/228250494-3c6ecca2-e35f-4a83-99c9-5ad0ba452dc3.png">
 
+### Entity Relationship Diagram
+
+### Test Report (Jacoco)
+
 ## Detailed implementations using Google technology
 ### Backend
 - To provide the **Backend technology to the client Android app in the form of a REST API**, we used several services from Google Cloud Platform (**GCP**).
