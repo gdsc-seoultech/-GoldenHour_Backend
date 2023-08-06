@@ -38,7 +38,8 @@ To solve this problem, **we created Golden Hour, an app that provides safety gui
 <img width="755" alt="golden-hour structure" src="https://user-images.githubusercontent.com/64399505/228250494-3c6ecca2-e35f-4a83-99c9-5ad0ba452dc3.png">
 
 ### Entity Relationship Diagram
-![ERD](https://github.com/gdsc-seoultech/GoldenHour_Backend/assets/64399505/1ba5704e-b9c9-4a21-a89b-c20af2b234d6)
+<img width="785" alt="image" src="https://github.com/gdsc-seoultech/GoldenHour_Backend/assets/64399505/44487cd1-2c3c-4cd5-b655-23bf11b629a6">
+<img width="1744" alt="image" src="https://github.com/gdsc-seoultech/GoldenHour_Backend/assets/64399505/a417cc62-9e12-4a72-b215-7e7dedfc3045">
 
 ### Test Report (Jacoco)
 <img width="1061" alt="test_result" src="https://github.com/gdsc-seoultech/GoldenHour_Backend/assets/64399505/e6c273ff-0d98-4cc1-9418-47cd30f62c94">
